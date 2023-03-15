@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>슬라이드 예제1</title>
+</head>
+
+<style>
+   /* Slide */
+   .container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+   }
+
+   .sldier-container {
+      position: absolute;
+      width: 100%;
+   }
+
+   .slide {
+      position: absolute;
+      width: 100%;
+      padding: 0 10%;
+      box-sizing: border-box;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      overflow: hidden;
+   }
+
+   .sldier-container.animated {
+      transition: left .3s ease-in;
+   }
+
+   /* Nav */
+   #prev,
+   #next {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%);
+      z-index: 9999999;
+      display: inline-block;
+      height: 5em;
+      width: 5em;
+      border-radius: 50%;
+      background-image: no-repeat;
+      background-position: center center;
+      transition: all .3s ease-in;
+   }
+
+   #prev.disabled,
+   #next.disabled {
+      display: none;
+   }
+
+   #prev {
+      background-image: url('./images/prev.png');
+      margin-left: -480px;
+   }
+
+   #next {
+      background-image: url('./images/next.png');
+      margin-left: 380px;
+   }
+</style>
+
+<body>
+   <!-- 기본 HTML 구조 -->
+   <div class="container">
+      <ul class="sldier-container simple-list" id="slider">
+         <li class="slide"><img src="./images/slide1.jpg" alt=""></li>
+         <li class="slide"><img src="./images/slide2.jpg" alt=""></li>
+         <li class="slide"><img src="./images/slide1.jpg" alt=""></li>
+         <li class="slide"><img src="./images/slide2.jpg" alt=""></li>
+         <li class="slide"><img src="./images/slide1.jpg" alt=""></li>
+         <li class="slide"><img src="./images/slide2.jpg" alt=""></li>
+      </ul>
+
+      <a href="#" id="prev"></a>
+      <a href="#" id="next"></a>
+   </div>
+
+   <script>
+      // 변수 지정
+      var sliderWrapper = document.getElementsByClassName('container'), // 클래스명 container
+         sldierContainer = document.getElementsByClassName('sldier-container'),  // 클래스명 sldier-container
+         slides = document.getElementsByClassName('slide'), // 클래스명 slide
+         slideCount = slides.length,
+         currentIndex = 0,
+         topHeight = 0,
+         navPrev = document.getElementById('prev'), // 아이디 prev
+         navNext = document.getElementById('next')// 아이디 next
+
+      // 슬라이드의 높이를 확인하여 부모의 높이로 지정
+      // topHeight = Math.max(...[...slides].map(el => el.offsetHeight))
+      for (let i = 0; i < slideCount; i++) {
+         if (slides[i].offsetHeight > topHeight) {
+            topHeight = slides[i].offsetHeight
+         }
+      }
+
+      sliderWrapper[0].style.height = topHeight + "px"
+      sldierContainer[0].style.height = topHeight + "px"
+
+      // 슬라이드가 있으면 가로로 배열
+      for (let i = 0; i < slideCount; i++) {
+         slides[i].style.left = i * 100 + "%";
+      }
+
+      // 슬라이드 이동 함수
+      function goToSlides(idx) {
+         sldierContainer[0].style.left = idx * -100 + "%"
+         sldierContainer[0].classList.add('animated')
+         currentIndex = idx
+
+         updateNav()
+      }
+
+      // 
+      function updateNav() {
+         // 처음일 때
+         if (currentIndex == 0) {
+            navPrev.classList.add('disabled')
+         } else {
+            navPrev.classList.remove('disabled')
+         }
+
+         // 마지막일 때
+         if (currentIndex == slideCount - 1) {
+            navNext.classList.add('disabled')
+         } else {
+            navNext.classList.remove('disabled')
+         }
+      }
+
+      // 버튼(next, prev)을 클릭하면 슬라이드 이동시키기
+      navPrev.addEventListener('click', function (e) {
+         e.preventDefault()
+         goToSlides(currentIndex - 1)
+      })
+      navNext.addEventListener('click', function (e) {
+         e.preventDefault()
+         goToSlides(currentIndex + 1)
+      })
+
+      goToSlides(0)
+
+   </script>
+</body>
+
+</html>
