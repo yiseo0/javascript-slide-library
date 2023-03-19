@@ -131,7 +131,7 @@
 
       makeClone()
       slideResize()
-      window.addEventListener('resize', function () {
+      window.addEventListener('resize', () => {
          slideResize()
       })
 
@@ -181,12 +181,12 @@
       }
 
       // Nex Btn
-      nextBtn.addEventListener('click', function () {
+      nextBtn.addEventListener('click', () => {
          moveSlide(currentIdx + 1)
       })
 
       // Prev Btn
-      prevBtn.addEventListener('click', function () {
+      prevBtn.addEventListener('click', () => {
          moveSlide(currentIdx - 1)
       })
 
@@ -197,7 +197,7 @@
          currentIdx = num
 
          if (currentIdx == slideCount || currentIdx == -slideCount) {
-            setTimeout(function () {
+            setTimeout(() => {
                slides.classList.remove('animated')
                slides.style.left = '0px'
                currentIdx = 0
@@ -209,7 +209,7 @@
       let timer = undefined
       function autoSlide() {
          if (timer === undefined) {
-            timer = setInterval(function () {
+            timer = setInterval(() => {
                moveSlide(currentIdx + 1)
             }, 1000)
          }
@@ -223,11 +223,11 @@
          timer = undefined
       }
 
-      slideWrapper.addEventListener('mouseenter', function () {
+      slideWrapper.addEventListener('mouseenter', () => {
          stopSlide()
       })
 
-      slideWrapper.addEventListener('mouseleave', function () {
+      slideWrapper.addEventListener('mouseleave', () => {
          autoSlide()
       })
 

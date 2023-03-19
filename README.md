@@ -7,4 +7,5 @@
 - example4 - 멀티 슬라이드, 하나씩 이동하는 슬라이드 구현
 - example5 - 멀티 슬라이드, 무한 반복 (Loop), 자동 슬라이드 구현
 - example6 - example5 반응형 슬라이드로 구현
+- example7 - example6 모듈화 (slide.js)
 

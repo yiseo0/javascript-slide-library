@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>슬라이드 예제</title>
+</head>
+
+<style>
+   /* Reset */
+   * {
+      margin: 0;
+      padding: 0;
+   }
+
+   li {
+      list-style: none;
+   }
+
+   /* Slide */
+   .container {
+      width: 1000px;
+      margin: 0 auto;
+   }
+
+   .slide_wrapper {
+      position: relative;
+      width: 960px;
+      margin: 0 auto;
+      /* height: 300px; */
+      overflow: hidden;
+   }
+
+   .slides {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      gap: 30px;
+   }
+
+   .slides.animated {
+      transition: left .3s;
+   }
+
+   .controls span {
+      text-align: center;
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 10px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+   }
+
+   .controls span.prev {
+      right: calc(100% - 100px);
+   }
+
+   .controls span.next {
+      left: calc(100% - 100px);
+   }
+
+   @media (max-width: 700px) {
+      .container {
+         width: 100%;
+         padding: 0 20px;
+         box-sizing: border-box;
+      }
+
+      .slide_wrapper {
+         width: 100%;
+      }
+
+      .slides {
+         gap: 20px;
+      }
+
+      .slide img {
+         width: 100%;
+      }
+   }
+
+   @media (max-width: 500px) {
+      .slides {
+         gap: 0;
+      }
+
+   }
+</style>
+<script defer src="./slide.js"></script>
+
+<body>
+
+   <!-- 기본 HTML 구조 -->
+   <div class="container">
+      <div class="slide_wrapper slideshow1">
+         <ul class="slides">
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         </ul>
+
+         <p class="controls">
+            <span href="#" class="prev">prev</span>
+            <span href="#" class="next">next</span>
+         </p>
+      </div>
+   </div>
+
+   <div class="container">
+      <div class="slide_wrapper slideshow2">
+         <ul class="slides">
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+            <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         </ul>
+
+         <p class="controls">
+            <span href="#" class="prev">prev</span>
+            <span href="#" class="next">next</span>
+         </p>
+      </div>
+   </div>
+
+   <script type="module">
+      // ES5 방식 const slideshow = require('./slide.js')
+      import slideshow from './slide.js'
+      slideshow('.slideshow1')
+      slideshow('.slideshow2')
+   </script>
+</body>
+
+</html>
