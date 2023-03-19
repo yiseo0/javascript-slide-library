@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>슬라이드 예제1</title>
+</head>
+
+<style>
+   /* Reset */
+   * { margin: 0; padding: 0; } 
+   li { list-style: none; } 
+
+   /* Slide */
+   .slide_wrapper { position: relative; width: 960px; margin: 0 auto; height: 300px; overflow: hidden; } 
+   .slides { position: absolute; left: 0; top: 0; display: flex; gap: 30px; } 
+   .slides.animated { transition: left .3s; } 
+   .controls span { text-align: center; background: #333; color: #fff; padding: 10px 20px; margin: 0 10px; position: absolute; top: 50%; transform: translateY(-50%); } 
+   .controls span.prev { right: calc(100% - 100px); } 
+   .controls span.next { left: calc(100% - 100px); } 
+</style>
+
+<body>
+
+   <!-- 기본 HTML 구조 -->
+   <div class="slide_wrapper">
+      <ul class="slides">
+         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
+      </ul>
+
+      <p class="controls">
+         <span href="#" class="prev">prev</span>
+         <span href="#" class="next">next</span>
+      </p>
+   </div>
+
+   <script>
+      let slides = document.querySelector('.slides'),
+         slide = document.querySelectorAll('.slide'),
+         currentIdx = 0,
+         slideCount = slide.length,
+         prevBtn = document.querySelector('.prev'),
+         slideWidth = 300,
+         slideMargin = 30,
+         nextBtn = document.querySelector('.next'),
+         slideMax = 3
+
+      makeClone()
+
+      // 기존 슬라이드를 앞/뒤로 복제하는 함수
+      function makeClone() {
+         for (let i = 0; i < slideCount; i++) {
+            let cloneSlide = slide[i].cloneNode(true)
+            cloneSlide.classList.add('clone')
+            slides.appendChild(cloneSlide)
+         }
+
+         for (let i = slideCount - 1; i >= 0; i--) {
+            let cloneSlide = slide[i].cloneNode(true)
+            cloneSlide.classList.add('clone')
+            slides.prepend(cloneSlide)
+         }
+
+         setInitialPos()
+      }
+
+      // 기존 슬라이드의 위치로 translate 시키는 초기화 함수
+      function setInitialPos() {
+         let initialTranslateValue = -(slideWidth + slideMargin) * slideCount
+         slides.style.transform = `translateX(${initialTranslateValue}px)`
+      }
+
+      // Nex tBtn
+      nextBtn.addEventListener('click', function () {
+         moveSlide(currentIdx + 1)
+      })
+
+      // Prev Btn
+      prevBtn.addEventListener('click', function () {
+         moveSlide(currentIdx - 1)
+      })
+
+      // 슬라이드 이동 함수
+      function moveSlide(num) {
+         slides.classList.add('animated')
+         slides.style.left = -num * (slideWidth + slideMargin) + 'px'
+         currentIdx = num
+
+         if (currentIdx == slideCount || currentIdx == -slideCount) {
+            setTimeout(function () {
+               slides.classList.remove('animated')
+               slides.style.left = '0px'
+               currentIdx = 0
+            }, 300)
+         }
+      }
+   </script>
+</body>
+
+</html>
