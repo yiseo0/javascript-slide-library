@@ -68,9 +68,6 @@
          <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
          <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
          <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
-         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
-         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
-         <li class="slide"><img src="http://via.placeholder.com/300x300.jpg" alt=""></li>
       </ul>
 
       <p class="controls">
@@ -80,7 +77,8 @@
    </div>
 
    <script>
-      let slides = document.querySelector('.slides'),
+      let slideWrapper = document.querySelector('.slide_wrapper'),
+         slides = document.querySelector('.slides'),
          slide = document.querySelectorAll('.slide'),
          currentIdx = 0,
          slideCount = slide.length,
@@ -160,11 +158,11 @@
          timer = undefined
       }
 
-      slides.addEventListener('mouseenter', function () {
+      slideWrapper.addEventListener('mouseenter', function () {
          stopSlide()
       })
 
-      slides.addEventListener('mouseleave', function () {
+      slideWrapper.addEventListener('mouseleave', function () {
          autoSlide()
       })
    </script>
