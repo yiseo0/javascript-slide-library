@@ -10,16 +10,54 @@
 
 <style>
    /* Reset */
-   * { margin: 0; padding: 0; } 
-   li { list-style: none; } 
+   * {
+      margin: 0;
+      padding: 0;
+   }
+
+   li {
+      list-style: none;
+   }
 
    /* Slide */
-   .slide_wrapper { position: relative; width: 960px; margin: 0 auto; height: 300px; overflow: hidden; } 
-   .slides { position: absolute; left: 0; top: 0; display: flex; gap: 30px; } 
-   .slides.animated { transition: left .3s; } 
-   .controls span { text-align: center; background: #333; color: #fff; padding: 10px 20px; margin: 0 10px; position: absolute; top: 50%; transform: translateY(-50%); } 
-   .controls span.prev { right: calc(100% - 100px); } 
-   .controls span.next { left: calc(100% - 100px); } 
+   .slide_wrapper {
+      position: relative;
+      width: 960px;
+      margin: 0 auto;
+      height: 300px;
+      overflow: hidden;
+   }
+
+   .slides {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      gap: 30px;
+   }
+
+   .slides.animated {
+      transition: left .3s;
+   }
+
+   .controls span {
+      text-align: center;
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 10px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+   }
+
+   .controls span.prev {
+      right: calc(100% - 100px);
+   }
+
+   .controls span.next {
+      left: calc(100% - 100px);
+   }
 </style>
 
 <body>
@@ -101,6 +139,34 @@
             }, 300)
          }
       }
+
+      let timer = undefined
+
+      // 자동 슬라이드 함수
+      function autoSlide() {
+         if (timer === undefined) {
+            timer = setInterval(function () {
+               moveSlide(currentIdx + 1)
+            }, 1000)
+         }
+      }
+
+      autoSlide()
+
+      // 자동 슬라이드 정지 함수
+      function stopSlide() {
+         clearInterval(timer)
+         // 시간이 지났을 때 슬라이드가 비정상적인 속도로 움직이는 오류 방지를 위해 timer 값 undefined 처리
+         timer = undefined
+      }
+
+      slides.addEventListener('mouseenter', function () {
+         stopSlide()
+      })
+
+      slides.addEventListener('mouseleave', function () {
+         autoSlide()
+      })
    </script>
 </body>
 
